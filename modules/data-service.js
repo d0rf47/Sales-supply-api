@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const saleSchema = require("./saleSchema.js");
+const saleSchema = require('./saleSchema');
 
 module.exports = function(connectionString){
 
@@ -9,8 +9,8 @@ module.exports = function(connectionString){
 
         initialize: function(){
             return new Promise((resolve,reject)=>{
-               let db1 = mongoose.createConnection(connectionString,{ useNewUrlParser: true,useUnifiedTopology: true });
-               
+               let db1 = mongoose.createConnection(connectionString,{ useNewUrlParser: true,useUnifiedTopology: true });               
+               console.log(`Db connected`)
                 db1.on('error', ()=>{
                     reject();
                 });
