@@ -20,15 +20,20 @@ app.use(bodyParser.json());
 
 const HTTP_PORT = process.env.PORT || 8080;
 
-// ************* API Routes
-
-// POST /api/sales (NOTE: This route must read the contents of the request body)
-
 app.get('/',(req,res)=>
 {
     res.send("testing");
 })
 
+// ************* API Routes
+
+
+// POST /api/sales (NOTE: This route must read the contents of the request body)
+app.post('/api/sales', async (req,res)=>
+{
+    await myData.addNewSale(req.body);    
+    res.send({message:`New Sale Added`})
+})
 
 // GET /api/sales (NOTE: This route must accept the numeric query parameters "page" and "perPage", ie: /api/sales?page=1&perPage=5 )
 app.get('/api/sales', async (req,res)=>
@@ -56,14 +61,14 @@ app.put('/api/sales/:saleID', async (req,res)=>
     let _id = req.params.saleID;  
     console.log(req.body);
     await myData.updateSaleById(req.body, _id);    
-    res.send(`sale ${_id} updated`)
+    res.send({message:`sale ${_id} updated`})
 })
 // DELETE /api/sales (NOTE: This route must accept a numeric route parameter, ie: /api/sales/5bd761dcae323e45a93ccfe8)
 app.delete('/api/sales/:saleID', async (req,res)=>
 {
     let _id = req.params.saleID;  
     await myData.deleteSaleById(_id);
-    res.send(`sale ${_id} Deleted`)
+    res.send({message:`sale ${_id} Deleted`})
 })
 
 // ************* Initialize the Service & Start the Server
@@ -75,7 +80,7 @@ myData.initialize()
         console.log(`server listening on: ${HTTP_PORT}`);
     });
 })  .catch((err)=>
-{
-    console.log(err);
-});
+    {
+        console.log(err);
+    });
 
