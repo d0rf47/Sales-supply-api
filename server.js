@@ -13,16 +13,18 @@ const bodyParser = require("body-parser");
 const dataService = require('./modules/data-service');
 require("dotenv").config({path:'config/config.env'});
 const myData = dataService(`mongodb+srv://admin:${process.env.pass}@cluster0-odvzz.mongodb.net/sample_supplies?retryWrites=true&w=majority`);
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
 
 const HTTP_PORT = process.env.PORT || 8080;
 
 app.get('/',(req,res)=>
 {
-    res.send("testing");
+    res.sendFile(path.join(__dirname + '/public/html/index.html'));
 })
 
 // ************* API Routes
