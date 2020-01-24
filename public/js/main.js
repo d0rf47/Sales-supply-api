@@ -1,6 +1,6 @@
 const items = [];
 var item;
-let page  = 1;
+let page  = 0;
 const perPage = 10;
 const saleTableTemplate = _.template(`
     <% _.forEach(items, function(item){ %>
@@ -60,8 +60,9 @@ const saleModelBodyTemplate = _.template(`
 
 $(function(){
     console.log("DOM ready");
-    
-    $.getJSON(`http://localhost:8080/api/sales/?page=${page}&perPage=${perPage}`, function(data){
+    page = $("#page").html();
+    $("#page").text(page)
+    $.getJSON(`https://sales-supplies-api.herokuapp.com/api/sales/?page=${page}&perPage=${perPage}`, function(data){
         
         $.each(data, function(key, val)
         {
