@@ -50,7 +50,7 @@ const saleModelBodyTemplate = _.template(`
                             <tr>
                                 <td> <%- saleItem.name %>  </td>
                                 <td> <%- saleItem.quantity %> </td>
-                                <td> <%- saleItem.price %> </td>
+                                <td> $<%- saleItem.price %> </td>
                             <tr>
                         <% }); %>
                     </tbody>
