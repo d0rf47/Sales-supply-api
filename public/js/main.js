@@ -1,4 +1,5 @@
 const items = [];
+var total=0;
 var item;
 let page  = 0;
 const perPage = 10;
@@ -29,7 +30,7 @@ const saleModelBodyTemplate = _.template(`
             <strong>Satisfaction: </strong>  <%-item.customer.satisfaction %>
             <br>
             <br>
-            <h4>Items </h4>
+            <h4>Items $<%- total %> </h4>
                 <table class ="table">
                     <thead>
                         <tr>
@@ -58,7 +59,8 @@ const saleModelBodyTemplate = _.template(`
             
 `)
 
-$(function(){
+$(function()
+{
     console.log("DOM ready");
     page = $("#page").html();    
     getData();
@@ -70,9 +72,15 @@ $(function(){
             if(found._id == id)
             {
                 return found;
-            }
+            }            
             
         })
+        _.forEach(item.items, function(i){
+            total += Number(i.price) * Number(i.quantity);
+            
+        });
+        total = _.round(total,2);
+        console.log(total);
         console.log(item)
         $("#itemModal").html(saleModelBodyTemplate(item))
         $("#itemModal").modal("show")
@@ -80,29 +88,29 @@ $(function(){
     
 })
 
-function getData(){
+function getData()
+{
     items.length=0;
     $("#page").text(page)
-    $.getJSON(`https://sales-supplies-api.herokuapp.com/api/sales/?page=${page}&perPage=${perPage}`, function(data){
-        
+    $.getJSON(`https://sales-supplies-api.herokuapp.com/api/sales/?page=${page}&perPage=${perPage}`, function(data)
+    {        
         $.each(data, function(key, val)
         {
             items.push(val);
             console.log(val);
-        });                
-        
-        $("tbody").html(saleTableTemplate(items))    
-        
+        });                        
+        $("tbody").html(saleTableTemplate(items))            
     })          
 }
-$(function(){
+$(function()
+{
     console.log(window.location.href);
     nextPage();
     prevPage();
 })
 
-function nextPage(){
-    
+function nextPage()
+{    
     $("#page").attr("href", window.location.href)
     $("#nextPage").on("click", function(){
         page++;
@@ -110,8 +118,8 @@ function nextPage(){
     })    
 }
 
-function prevPage(){
-    
+function prevPage()
+{    
     $("#page").attr("href", window.location.href)
     $("#prevPage").on("click", function(){
         page--;
