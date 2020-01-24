@@ -60,19 +60,8 @@ const saleModelBodyTemplate = _.template(`
 
 $(function(){
     console.log("DOM ready");
-    page = $("#page").html();
-    $("#page").text(page)
-    $.getJSON(`https://sales-supplies-api.herokuapp.com/api/sales/?page=${page}&perPage=${perPage}`, function(data){
-        
-        $.each(data, function(key, val)
-        {
-            items.push(val);
-            console.log(val);
-        });                
-        
-        $("tbody").html(saleTableTemplate(items))    
-        
-    })          
+    page = $("#page").html();    
+    getData();
     $("#data-table tbody").on("click","tr", function(e){
         let id = ($(this).attr("data-id"));                    
         console.log(id);        
@@ -91,6 +80,41 @@ $(function(){
     
 })
 
+function getData(){
+    items.length=0;
+    $("#page").text(page)
+    $.getJSON(`https://sales-supplies-api.herokuapp.com/api/sales/?page=${page}&perPage=${perPage}`, function(data){
+        
+        $.each(data, function(key, val)
+        {
+            items.push(val);
+            console.log(val);
+        });                
+        
+        $("tbody").html(saleTableTemplate(items))    
+        
+    })          
+}
 $(function(){
-    console.log(items.length);
+    console.log(window.location.href);
+    nextPage();
+    prevPage();
 })
+
+function nextPage(){
+    
+    $("#page").attr("href", window.location.href)
+    $("#nextPage").on("click", function(){
+        page++;
+        getData();        
+    })    
+}
+
+function prevPage(){
+    
+    $("#page").attr("href", window.location.href)
+    $("#prevPage").on("click", function(){
+        page--;
+        getData();        
+    })    
+}
