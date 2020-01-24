@@ -33,7 +33,7 @@ const saleModelBodyTemplate = _.template(`
             <br>
             <strong>age: </strong> <%- item.customer.age %> 
             <br>
-            <strong>Satisfaction: </strong>  <%-item.customer.satisfaction %>
+            <strong>Satisfaction: </strong>  <%-item.customer.satisfaction %> / 5
             <br>
             <br>
             <h4>Items $<%- total %> </h4>
