@@ -1,3 +1,9 @@
+/********************************************************************************* 
+ * * WEB422 – Assignment 2 * I declare that this assignment is my own work in accordance with Seneca Academic Policy.
+ *  * No part of this assignment has been copied manually or electronically from any other source 
+ * * (including web sites) or distributed to other students. * 
+ * * Name: Michael Falconi Student ID: 143152189 Date: Jan 25 2020 * 
+ * * ********************************************************************************/
 const items = [];
 var total=0;
 var item;
