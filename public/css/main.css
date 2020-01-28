@@ -3,3 +3,7 @@ tr:hover
     cursor: pointer;
 }
 
+.mainNav
+{
+    padding: 1%;
+}
